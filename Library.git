@@ -1,0 +1,91 @@
+
+
+class Book:
+def init(self, book_id, title, author, copies): self.book_id = book_id self.title = title self.author = author self.copies = copies
+
+def __str__(self):
+    return f"ID: {self.book_id}, Title: {self.title}, Author: {self.author}, Copies: {self.copies}"
+
+class Library: 
+def init(self): # Dictionary: book_id -> Book object self.books = {} # Dictionary: book_id -> list of user names (queue for waiting list) self.waiting_list = {}
+
+def add_book(self, book_id, title, author, copies):
+    if book_id in self.books:
+        self.books[book_id].copies += copies
+    else:
+        self.books[book_id] = Book(book_id, title, author, copies)
+        self.waiting_list[book_id] = []
+    print("Book added successfully")
+
+def display_books(self):
+    if not self.books:
+        print("No books in library")
+        return
+    for book in self.books.values():
+        print(book)
+
+def issue_book(self, book_id, user):
+    if book_id not in self.books:
+        print("Book not found")
+        return
+    book = self.books[book_id]
+    if book.copies > 0:
+        book.copies -= 1
+        print(f"Book issued to {user}")
+    else:
+        self.waiting_list[book_id].append(user)
+        print("No copies available. User added to waiting list")
+
+def return_book(self, book_id):
+    if book_id not in self.books:
+        print("Invalid book ID")
+        return
+    if self.waiting_list[book_id]:
+        next_user = self.waiting_list[book_id].pop(0)  # Queue behavior
+        print(f"Book issued to waiting user: {next_user}")
+    else:
+        self.books[book_id].copies += 1
+        print("Book returned successfully")
+
+Menu-driven program
+
+def main(): library = Library()
+
+while True:
+    print("\n--- Library Management System ---")
+    print("1. Add Book")
+    print("2. Display Books")
+    print("3. Issue Book")
+    print("4. Return Book")
+    print("5. Exit")
+
+    choice = input("Enter choice: ")
+
+    if choice == '1':
+        book_id = int(input("Enter book ID: "))
+        title = input("Enter title: ")
+        author = input("Enter author: ")
+        copies = int(input("Enter number of copies: "))
+        library.add_book(book_id, title, author, copies)
+
+    elif choice == '2':
+        library.display_books()
+
+    elif choice == '3':
+        book_id = int(input("Enter book ID: "))
+        user = input("Enter user name: ")
+        library.issue_book(book_id, user)
+
+    elif choice == '4':
+        book_id = int(input("Enter book ID: "))
+        library.return_book(book_id)
+
+    elif choice == '5':
+        print("Exiting...")
+        break
+
+    else:
+        print("Invalid choice")
+
+if name == "main": 
+    main()
